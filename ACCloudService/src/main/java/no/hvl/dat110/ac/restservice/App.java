@@ -40,14 +40,14 @@ public class App {
   		});
 		
 		// for basic testing purposes
-		get("/accessdevice/hello", (req, res) -> {
+		get(Endpoints.HELLO.toString(), (req, res) -> {
 			
 		 	Gson gson = new Gson();
 		 	
 		 	return gson.toJson("IoT Access Control Device");
 		});
 		
-		post("/accessdevice/log", (req, res) -> {
+		post(Endpoints.POST_LOG.toString(), (req, res) -> {
 			Gson gson = new Gson();
 			
 			AccessMessage message = gson.fromJson(req.body(), AccessMessage.class);
@@ -59,13 +59,13 @@ public class App {
 			return gson.toJson(addedMessage);
 		});
 		
-		get("/accessdevice/log",(req, res) -> {
+		get(Endpoints.GET_LOGS.toString(),(req, res) -> {
 			
 			
 			return accesslog.toJson();
 		});
 		
-		get("/accessdevice/log/:id",(req, res) -> {
+		get(Endpoints.GET_LOG.toString(),(req, res) -> {
 			int p = 0;
 			try {
 				p = Integer.parseInt(req.params(":id"));
@@ -84,19 +84,19 @@ public class App {
 			return gson.toJson(entry);
 		});
 		
-		put("/accessdevice/code", (req, res) -> {
+		put(Endpoints.PUT_CODE.toString(), (req, res) -> {
 			Gson gson = new Gson();
 			AccessCode code = gson.fromJson(req.body(), AccessCode.class);
 			accesscode.setAccesscode(code.getAccesscode());
 			return gson.toJson(accesscode);
 		});
 		
-		get("/accessdevice/code", (req, res) -> {
+		get(Endpoints.GET_CODE.toString(), (req, res) -> {
 			Gson gson = new Gson();
 			return gson.toJson(accesscode);
 		});
 		
-		delete("accessdevice/log", (req, res) -> {
+		delete(Endpoints.DELETE_LOGS.toString(), (req, res) -> {
 			accesslog.clear();
 			return accesslog.toJson();
 		});
